@@ -1,0 +1,146 @@
+/* OpenListThemes 公共样式 */
+/* 使用方法：在 OpenList 自定义头部中通过 link 标签引入 */
+
+/* 去除通知栏 右上角 X */
+.notify-render .hope-close-button {
+    display: none;
+}
+
+/*主列表白天模式透明*/
+.obj-box.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-igScBhH-css {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+/*主列表夜间模式透明*/
+.obj-box.hope-stack.hope-c-dhzjXW.hope-c-PJLV.hope-c-PJLV-iigjoxS-css {
+    background-color: rgb(0 0 0 / 50%) !important;
+}
+/*readme白天模式透明*/
+.hope-c-PJLV.hope-c-PJLV-ikSuVsl-css {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+/*readme夜间模式透明*/
+.hope-c-PJLV.hope-c-PJLV-iiuDLME-css {
+    background-color: rgb(0 0 0 / 50%) !important;
+}
+
+/*顶部右上角切换按钮透明*/
+.hope-ui-light .hope-c-ivMHWx-hZistB-cv.hope-icon-button {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+.hope-ui-dark .hope-c-ivMHWx-hZistB-cv.hope-icon-button {
+    background-color: rgb(0 0 0 / 50%) !important;
+}
+
+/*右下角侧边栏按钮透明*/
+.hope-ui-light .hope-c-PJLV-ijgzmFG-css {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+.hope-ui-dark .hope-c-PJLV-ijgzmFG-css {
+    background-color: rgb(0 0 0 / 50%) !important;
+}
+
+/*白天模式代码块透明*/
+.hope-ui-light pre {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+/*夜间模式代码块透明*/
+.hope-ui-dark pre {
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+
+/*左侧侧边栏目录*/
+.hope-ui-light .hope-c-PJLV-ieGWMbI-css {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+.hope-ui-dark .hope-c-PJLV-ieGWMbI-css {
+    background-color: rgb(0 0 0 / 50%) !important;
+}
+
+/* 返回顶部 */
+.hope-c-PJLV-ihVEsOa-css {
+    background: rgba(255, 255, 255, 0.5) !important;
+}
+.hope-ui-dark .hope-c-PJLV-ihVEsOa-css {
+    background-color: rgb(0 0 0 / 50%) !important;
+}
+
+/*顶部*/
+.hope-c-PJLV-ikaMhsQ-css {
+    background: rgba(255, 255, 255, 0) !important;
+}
+
+/*导航条 - 白天模式*/
+.hope-ui-light .hope-c-PJLV-idaeksS-css {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    border-radius: var(--hope-radii-xl) !important;
+}
+/*导航条 - 夜间模式*/
+.hope-ui-dark .hope-c-PJLV-idaeksS-css {
+    background-color: rgb(0 0 0 / 50%) !important;
+    border-radius: var(--hope-radii-xl) !important;
+}
+
+/* 吸附到页面顶部 */
+.hope-c-PJLV-icWrYmg-css {
+    background: rgba(255, 255, 255, 0) !important;
+}
+.hope-c-PJLV-icKsjdm-css::after {
+    background: rgba(255, 255, 255, 0) !important;
+}
+.hope-ui-light .hope-c-PJLV-icKsjdm-css {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    border-radius: var(--hope-radii-xl) !important;
+}
+.hope-ui-dark .hope-c-PJLV-icKsjdm-css {
+    background-color: rgb(0 0 0 / 50%) !important;
+    border-radius: var(--hope-radii-xl) !important;
+}
+
+/*仅吸附导航栏*/
+.hope-c-PJLV-ifdXShc-css::after {
+    background: rgba(255, 255, 255, 0) !important;
+}
+.hope-ui-light .hope-c-hrsMRY {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    border-radius: var(--hope-radii-xl) !important;
+}
+.hope-ui-dark .hope-c-hrsMRY {
+    background-color: rgb(0 0 0 / 50%) !important;
+    border-radius: var(--hope-radii-xl) !important;
+}
+
+/*底部CSS*/
+dibu {
+    border-top: 0px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+.App {
+    min-height: 85vh;
+}
+.table {
+    margin: auto;
+}
+/*去掉底部*/
+.footer {
+    display: none !important;
+}
+
+/*评论系统专用*/
+.giscus {
+    width: min(96%, 940px);
+    flex-direction: column;
+    row-gap: var(--hope-space-2);
+    border-radius: var(--hope-radii-xl);
+    padding: var(--hope-space-2);
+    box-shadow: var(--hope-shadows-lg);
+}
+.hope-ui-light .giscus {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+.hope-ui-dark .giscus {
+    background-color: rgb(0 0 0 / 80%) !important;
+}
