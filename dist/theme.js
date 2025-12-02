@@ -99,8 +99,22 @@
     function initGiscus() {
         if (!config.enableComment || !config.giscusRepo) return;
         
-        const giscusContainer = document.getElementById('giscus');
-        if (!giscusContainer) return;
+        let giscusContainer = document.getElementById('giscus');
+        
+        // 如果页面没有 giscus 容器，自动创建一个
+        if (!giscusContainer) {
+            const customizeDiv = document.getElementById('customize');
+            if (customizeDiv) {
+                const center = document.createElement('center');
+                giscusContainer = document.createElement('div');
+                giscusContainer.className = 'giscus';
+                giscusContainer.id = 'giscus';
+                center.appendChild(giscusContainer);
+                customizeDiv.querySelector('div').appendChild(center);
+            } else {
+                return;
+            }
+        }
         
         const script = document.createElement('script');
         script.src = 'https://giscus.app/client.js';
@@ -121,24 +135,33 @@
         giscusContainer.appendChild(script);
     }
 
-    // 页面加载完成后初始化
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
+    // 显示自定义内容
+    function showCustomize() {
+        const customize = document.querySelector("#customize");
+        if (customize) {
+            customize.style.display = "";
+        }
     }
 
+    // 页面加载完成后初始化
     function init() {
         injectStyles();
         initMusicPlayer();
         
-        // 等待页面完全加载后初始化评论
+        // 等待页面完全加载后初始化
         let interval = setInterval(() => {
             if (document.querySelector(".footer")) {
+                showCustomize();
                 initGiscus();
                 clearInterval(interval);
             }
         }, 200);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
     }
 
     // 暴露配置供调试
