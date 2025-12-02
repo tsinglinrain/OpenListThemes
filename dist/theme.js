@@ -94,10 +94,8 @@
     // 生成底部内容
     function generateFooterContent() {
         const customize = document.getElementById('customize');
-        if (!customize) return;
-
-        // 检查是否已有内容，如果有则不覆盖
-        if (customize.innerHTML.trim()) {
+        if (!customize) {
+            console.log('OpenListTheme: #customize 元素不存在');
             return;
         }
 
@@ -119,6 +117,7 @@
 
         // 添加版权链接
         if (config.copyrightText) {
+            if (linksHtml) linksHtml += ' | ';
             linksHtml += `
                 <span class="nav-item">
                     <a class="nav-link" href="${config.copyrightLink}" target="_blank">
@@ -173,8 +172,10 @@
             const hitokotoScript = document.createElement('script');
             hitokotoScript.src = 'https://v1.hitokoto.cn/?encode=js&select=%23hitokoto';
             hitokotoScript.defer = true;
-            customize.appendChild(hitokotoScript);
+            document.body.appendChild(hitokotoScript);
         }
+        
+        console.log('OpenListTheme: 底部内容已生成');
     }
 
     // 初始化评论系统
