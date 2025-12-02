@@ -1,16 +1,6 @@
 /**
  * OpenListThemes 主题配置脚本
  * 使用方法：在 OpenList 自定义头部中引入此文件，并在引入前定义配置
- * 
- * 示例：
- * <script>
- *   window.OpenListThemeConfig = {
- *     lightBg: "你的白天背景图URL",
- *     darkBg: "你的夜间背景图URL",
- *     // 更多配置...
- *   };
- * </script>
- * <script src="https://cdn.jsdelivr.net/gh/你的用户名/OpenListThemes@main/dist/theme.js"></script>
  */
 
 (function() {
@@ -19,9 +9,6 @@
         // 背景图片
         lightBg: '',
         darkBg: '',
-        // 透明度配置 (0-1)
-        lightOpacity: 0.8,
-        darkOpacity: 0.5,
         // 是否启用音乐播放器
         enableMusic: false,
         musicServer: 'netease',
@@ -33,6 +20,15 @@
         giscusRepoId: '',
         giscusCategory: '',
         giscusCategoryId: '',
+        // 是否启用一言
+        enableHitokoto: true,
+        // 是否启用访问统计
+        enableVisitorStats: true,
+        // 底部链接配置
+        footerLinks: [],
+        // 版权文字
+        copyrightText: 'OpenList',
+        copyrightLink: 'https://github.com/OpenListTeam/OpenList'
     };
 
     // 合并用户配置
@@ -95,26 +91,98 @@
         document.body.appendChild(musicContainer);
     }
 
+    // 生成底部内容
+    function generateFooterContent() {
+        const customize = document.getElementById('customize');
+        if (!customize) return;
+
+        // 检查是否已有内容，如果有则不覆盖
+        if (customize.innerHTML.trim()) {
+            return;
+        }
+
+        let linksHtml = '';
+        
+        // 生成底部链接
+        if (config.footerLinks && config.footerLinks.length > 0) {
+            config.footerLinks.forEach((link, index) => {
+                const separator = index < config.footerLinks.length - 1 ? ' |' : '';
+                linksHtml += `
+                    <span class="nav-item">
+                        <a class="nav-link" href="${link.url}" target="_blank">
+                            <i class="${link.icon}" style="color:#409EFF"></i> ${link.text}${separator}
+                        </a>
+                    </span>
+                `;
+            });
+        }
+
+        // 添加版权链接
+        if (config.copyrightText) {
+            linksHtml += `
+                <span class="nav-item">
+                    <a class="nav-link" href="${config.copyrightLink}" target="_blank">
+                        <i class="fa-solid fa-copyright" style="color:#409EFF;"></i> ${config.copyrightText}
+                    </a>
+                </span>
+            `;
+        }
+
+        // 访问统计
+        let statsHtml = '';
+        if (config.enableVisitorStats) {
+            statsHtml = `
+                <br />
+                <span>
+                    本站总访问量 <span id="busuanzi_value_site_pv" style="color: rgb(13, 109, 252); font-weight: bold;"></span> 次 
+                    总访客数 <span id="busuanzi_value_site_uv" style="color: rgb(13, 109, 252); font-weight: bold;"></span> 人
+                </span>
+            `;
+        }
+
+        // 一言
+        let hitokotoHtml = '';
+        if (config.enableHitokoto) {
+            hitokotoHtml = `
+                <div style="line-height: 20px;font-size: 9pt;font-weight: bold;">
+                    <span>"<span style="color: rgb(13, 109, 252); font-weight: bold;" id="hitokoto">
+                        <a href="#" id="hitokoto_text">"人生如逆旅，我亦是行人。"</a>
+                    </span>"</span>
+                </div>
+            `;
+        }
+
+        // 组装完整的底部
+        customize.innerHTML = `
+            <div>
+                <br />
+                <center class="dibu">
+                    ${hitokotoHtml}
+                    <div style="font-size: 13px; font-weight: bold;">
+                        ${linksHtml}
+                        ${statsHtml}
+                    </div>
+                </center>
+                <br /><br />
+                <center><div class="giscus" id="giscus"></div></center>
+            </div>
+        `;
+
+        // 加载一言脚本
+        if (config.enableHitokoto) {
+            const hitokotoScript = document.createElement('script');
+            hitokotoScript.src = 'https://v1.hitokoto.cn/?encode=js&select=%23hitokoto';
+            hitokotoScript.defer = true;
+            customize.appendChild(hitokotoScript);
+        }
+    }
+
     // 初始化评论系统
     function initGiscus() {
         if (!config.enableComment || !config.giscusRepo) return;
         
         let giscusContainer = document.getElementById('giscus');
-        
-        // 如果页面没有 giscus 容器，自动创建一个
-        if (!giscusContainer) {
-            const customizeDiv = document.getElementById('customize');
-            if (customizeDiv) {
-                const center = document.createElement('center');
-                giscusContainer = document.createElement('div');
-                giscusContainer.className = 'giscus';
-                giscusContainer.id = 'giscus';
-                center.appendChild(giscusContainer);
-                customizeDiv.querySelector('div').appendChild(center);
-            } else {
-                return;
-            }
-        }
+        if (!giscusContainer) return;
         
         const script = document.createElement('script');
         script.src = 'https://giscus.app/client.js';
@@ -151,6 +219,7 @@
         // 等待页面完全加载后初始化
         let interval = setInterval(() => {
             if (document.querySelector(".footer")) {
+                generateFooterContent();
                 showCustomize();
                 initGiscus();
                 clearInterval(interval);
